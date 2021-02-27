@@ -9,7 +9,7 @@ To use in GHCI:
 :load kmp.hs
 
 match {text} {pattern}  -- naive
-kmpMatch {text} {pattern} -- kmp lagorithm
+kmpMatch {text} {pattern} -- kmp algorithm
 ```
 
 ## Testing Runtime
