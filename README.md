@@ -24,10 +24,10 @@ match (take 10000 (cycle "xax")) "axxa"
 kmpMatch (take 10000 (cycle "xax")) "axxa"
 > (6.15 secs, 3,718,333,688 bytes)
 
-match (take 20000 (cycle "xax") "axxaxxaxxa")
+match (take 20000 (cycle "xax")) "axxaxxaxxa"
 > (36.56 secs, 18,784,034,520 bytes)
 
-kmpMatch (take 20000 (cycle "xax") "axxaxxaxxa")
+kmpMatch (take 20000 (cycle "xax")) "axxaxxaxxa"
 > (26.71 secs, 15,048,466,616 bytes)
 
 ```

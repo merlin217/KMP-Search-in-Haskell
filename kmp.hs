@@ -1,11 +1,8 @@
  
 -- The KMP pattern matching algorithm
 module Kmp where
- 
-matchAtHead :: (Eq a) => [a] -> [a] -> Bool
-matchAtHead _ [] = True
-matchAtHead [] _ = False
-matchAtHead (h:t) (ph:pt) = (h == ph) && (matchAtHead t pt)
+
+import Naive
  
 lpsArr :: Eq a => [a] -> [Int]
 lpsArr str = [lpsAt str i| i <- [0..(length str - 1)]]
