@@ -52,17 +52,16 @@ kmpMatch (h:t) pattern = kmpMatchHelper (h:t) pattern 0 (lpsArr pattern)
 kmpMatchHelper :: (Eq a1) => [a1] -> [a1] -> Int ->[Int] -> [Int]
 kmpMatchHelper [] _ _ _= []
 kmpMatchHelper txt pattern lpsVal lps
-    | matchAtHead txt (drop lpsVal pattern) = 0-lpsVal:[x + dropOffset | x <- (kmpMatchHelper (drop (dropOffset) txt)  pattern (lps!!(length lps - 1)) lps )]
-    | mismatchIdx == 0                      = [x+1 | x <- (kmpMatchHelper (drop 1 txt) pattern lpsVal lps)]
-    | otherwise                             = [x+(mismatchIdx) | x <- (kmpMatchHelper (drop mismatchIdx txt) pattern (lps !! mismatchIdx) lps)]
+    | matchAtHead txt (drop lpsVal pattern) = 0 - lpsVal : 
+                                              [x + dropOffset  | x <- kmpMatchHelper (drop dropOffset txt) pattern (last lps) lps] 
+    | mismatchIdx == 0                      = [x + 1           | x <- kmpMatchHelper (drop 1 txt) pattern lpsVal lps]
+    | otherwise                             = [x + mismatchIdx | x <- kmpMatchHelper (drop mismatchIdx txt) pattern (lps !! (mismatchIdx-1)) lps]
     where mismatchIdx = getLpsIndex txt pattern 0
-          dropOffset = lps!!(length lps - 1) - lpsVal + 1  
+          dropOffset = (last lps) - lpsVal + 1  
 -- lps:         the lps array for pattern
 -- lpsVal:      the pointer indicating which index of pattern we are searching at
 -- dropOffset:  if txt's head matches with pattern[lpsVal..] we drop that portion of the original text in the recursive call
- 
+
 -- Try: kmpMatch "oh something something" "some"
 -- Try: kmpMatch "XABXABXABXAB" "ABXAB"
 -- Try: kmpMatch "ABABABAB" "AB"
-
-
