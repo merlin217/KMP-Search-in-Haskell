@@ -1,6 +1,6 @@
 -- The naive pattern matching algorithm
 module Naive where
- 
+
 -- takes the string and pattern, 
 -- returns a list of all indexes where the pattern matches
 match :: (Eq a1, Num a2) => [a1] -> [a1] -> [a2]
