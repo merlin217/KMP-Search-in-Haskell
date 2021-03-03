@@ -53,14 +53,19 @@ kmpMatchHelper :: (Eq a1) => [a1] -> [a1] -> Int ->[Int] -> [Int]
 kmpMatchHelper [] _ _ _= []
 kmpMatchHelper txt pattern lpsVal lps
     | matchAtHead txt (drop lpsVal pattern) = 0 - lpsVal : 
-                                              [x + dropOffset  | x <- kmpMatchHelper (drop dropOffset txt) pattern (last lps) lps] 
-    | mismatchIdx == 0                      = [x + 1           | x <- kmpMatchHelper (drop 1 txt) pattern lpsVal lps]
-    | otherwise                             = [x + mismatchIdx | x <- kmpMatchHelper (drop mismatchIdx txt) pattern (lps !! (mismatchIdx-1)) lps]
-    where mismatchIdx = getLpsIndex txt pattern 0
-          dropOffset = (last lps) - lpsVal + 1  
--- lps:         the lps array for pattern
+                                              [x + dropOffset  | x <- kmpMatchHelper (drop dropOffset txt) pattern (last lps) lps]
+    | lpsVal == 0                           = [x + 1 | x <- kmpMatchHelper (drop 1 txt) pattern 0 lps]
+    | otherwise                             = [x + mismatchIdx | x <- kmpMatchHelper (drop mismatchIdx txt) pattern (lps !! (mismatchIdx+lpsVal-1)) lps]
+    where mismatchIdx = getLpsIndex txt (drop lpsVal pattern) 0
+          dropOffset = (length pattern) - lpsVal --  - (last lps)
+
+
 -- lpsVal:      the pointer indicating which index of pattern we are searching at
+-- lps:         the lps array for pattern
+
 -- dropOffset:  if txt's head matches with pattern[lpsVal..] we drop that portion of the original text in the recursive call
+-- mismatchIdx: at which index of the given pattern does the mismatch occur. 
+--                  NOTE: given pattern can be shorter than pattern if lpsVal>0
 
 -- Try: kmpMatch "oh something something" "some"
 -- Try: kmpMatch "XABXABXABXAB" "ABXAB"
