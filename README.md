@@ -1,8 +1,8 @@
-# 312Project1: Pattern Matching in Haskell
+# KMP Pattern Matching in Haskell
 > *Author: Shijia Su, Tom Mo*
 > *CLI used TimeIt package from [hackage](https://hackage.haskell.org/package/timeit-2.0/docs/System-TimeIt.html)*
  
-Implemented the Naive and Kmp pattern matching algorithm in haskell. 
+As coursework for CPSC 312, Implemented the Naive and KMP pattern matching algorithm in haskell. 
 
 To run the CLI: 
 ```
